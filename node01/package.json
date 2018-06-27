@@ -1,0 +1,20 @@
+{
+  "name": "node01",
+  "version": "1.0.0",
+  "description": "node sample 01",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "lambda",
+    "aws",
+    "appstore"
+  ],
+  "author": "dgraja",
+  "license": "ISC",
+  "dependencies": {
+    "lambda-local": "^1.5.1"
+  }
+}
