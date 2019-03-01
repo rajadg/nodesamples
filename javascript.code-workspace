@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "node02"
+		},
+		{
+			"path": "node01"
+		},
+		{
+			"path": "launchpad"
+		},
+		{
+			"path": "web01"
+		},
+		{
+			"path": "gui01"
+		}
+	],
+	"settings": {
+		"mocha.enabled": true
+	}
+}
