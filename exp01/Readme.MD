@@ -5,8 +5,9 @@ Express JS is NodeJS based Web application framework; also open source. It can s
 
 Following are the contents of this document:
 1. [Basics](##Basics) A simple hello world sample
-2. [Static Contents](#Static) How to serve static contents
-3. [Nodemon](#Nodemon) Useful tool to speed up development
+2. [Static Contents](##Static) How to serve static contents
+3. [Nodemon](##Nodemon) Useful tool to speed up development
+4. [Routing](##Routing) How to peform Routing
 
 ---
 ## Basics
@@ -40,7 +41,8 @@ node MyServer.js
 
 ---
 
-##Static Contents
+## Static Contents
+
 We can serve static contents in an express application using 'serve-static' module. This is a middleware in express, which is also available with simple http server. (refer: https://www.npmjs.com/package/serve-static)
 
 #### 2.1 Installation
@@ -63,6 +65,8 @@ var path = require('path');
 var staticRoot = path.join(path.dirname(__dirname), 'webstatic');
 // Link this path to the /web relative url
 app.use('/web', serveStatic(staticRoot));
+
+app.listen(8080);
 ```
 
 Now if user tries to open the url `http://localhost:8080/web/index.html` in the browser, the index.html file in the local folder 'webstatic' will be displayed.
@@ -85,3 +89,29 @@ nodemon MyServer.js
 ```
 
 Now whenever the file `MyServer.js` is modified (and saved), then nodemon will automatically restart the application with latest code so this is immensly helpful with development.
+
+---
+
+## Routing
+
+We can add multiple routes to an express application. Each route can do a specific function. For example we can add one route per REST API which is implemented in the express application. The routing is done using the router object created using funciton call `express.Router()`. This object can be assigned GET, POST, PUT, DELETE, etc handlers and then used in the express application.
+Example code:
+```javascript
+var app = express();
+
+// Add a route
+var api_about = express.Router();
+// Add a get handler which returns some string
+api_about.get('/', function(req, res) {
+    res.send('<h1>Basic express application</h1>');
+});
+// Add the router for relative url /api/about
+app.use('/api/about', api_about);
+
+
+app.listen(8080);
+```
+Here the url `http://localhost:8080/api/about` will return the about information above. The first paramter for **app.use** method is the relative url, the second parameter can be the router or a route based middleware like `serve-static` which can serve static content. In the above example, we have used a router.
+
+---
+
