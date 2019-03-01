@@ -4,14 +4,22 @@
 Express JS is NodeJS based Web application framework; also open source. It can serve web pages, static content, run rest API in server side, and also perform a lot stuff that can be done by a Web Server.
 
 Following are the contents of this document:
-1. [Basics](#basics) A simple hello world sample
-2. [Static Contents](#static-contents) How to serve static contents
-3. [Nodemon](#nodemon) Useful tool to speed up development
-4. [Routing](#routing) How to peform Routing
+- [Express JS Development](#express-js-development)
+  - [1.Basics](#1basics)
+      - [1.1. Installation](#11-installation)
+      - [1.2. Hello World sample](#12-hello-world-sample)
+      - [1.3. Run the application](#13-run-the-application)
+  - [2. Static Contents](#2-static-contents)
+      - [2.1 Installation](#21-installation)
+      - [2.2 Sample Code](#22-sample-code)
+      - [2.3 Alternate option (Recent)](#23-alternate-option-recent)
+  - [3. Nodemon](#3-nodemon)
+  - [4. Routing](#4-routing)
+  - [5. URL Building](#5-url-building)
 
 ---
 
-## Basics
+## 1.Basics
 
 #### 1.1. Installation
 Simply run the following command in a nodejs application:
@@ -42,7 +50,7 @@ node MyServer.js
 
 ---
 
-## Static Contents
+## 2. Static Contents
 
 We can serve static contents in an express application using 'serve-static' module. This is a middleware in express, which is also available with simple http server. (refer: https://www.npmjs.com/package/serve-static)
 
@@ -73,9 +81,24 @@ app.listen(8080);
 Now if user tries to open the url `http://localhost:8080/web/index.html` in the browser, the index.html file in the local folder 'webstatic' will be displayed.
 *Note: The urls `http://localhost:8080/web` and `http://localhost:8080/web/index.html` both display same content in browser*
 
+#### 2.3 Alternate option (Recent)
+Newer versions of express contain static as part of express (4.16 onwards). So we can simply use express.static() method to create a static route.
+Example:
+```javascript
+// Create an object of express
+var app = express();
+
+var staticRoot = path.join(path.dirname(__dirname), 'webstatic');
+// Link this path to the /web relative url
+app.use('/web', express.static(staticRoot));
+
+app.listen(8080);
+```
+
+
 ---
 
-## Nodemon
+## 3. Nodemon
 
 We can use `nodemon` to automatically recompile and restart the application whenever some source code is edited. The `nodemon` library can be installed globally and useful for not only express, but also running other nodejs applications.
 
@@ -93,7 +116,7 @@ Now whenever the file `MyServer.js` is modified (and saved), then nodemon will a
 
 ---
 
-## Routing
+## 4. Routing
 
 We can add multiple routes to an express application. Each route can do a specific function. For example we can add one route per REST API which is implemented in the express application. The routing is done using the router object created using funciton call `express.Router()`. This object can be assigned GET, POST, PUT, DELETE, etc handlers and then used in the express application.
 Example code:
@@ -113,6 +136,23 @@ app.use('/api/about', api_about);
 app.listen(8080);
 ```
 Here the url `http://localhost:8080/api/about` will return the about information above. The first paramter for **app.use** method is the relative url, the second parameter can be the router or a route based middleware like `serve-static` which can serve static content. In the above example, we have used a router.
+
+---
+
+## 5. URL Building
+We can also provide dynamic routes where part of the route (url) can change every request. This kind of url building will help pass parameters to REST API as part of url path itself. Example scenarios: Creating an entry, Deleting an entry, Searching for some product inside category, etc.
+
+The dynamic part of the url will be of the form `:my_identifier(reg-ex)`. We can refer to the actual string by using `req.params.my_identifier` and also we can add validation of parameter by regular expression. 
+
+```javascript
+// -------- Dynamic Urls ---------------------
+var api_user = express.Router();
+api_user.get('/:userid', function(req, res){
+    res.send(`<h1>User requested is : ${req.params.userid}</h1>`);
+});
+app.use('/api/user', api_user);
+// Example: http://localhost:8080/api/user/tester
+```
 
 ---
 
