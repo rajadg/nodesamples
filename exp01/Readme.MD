@@ -5,7 +5,7 @@ Express JS is NodeJS based Web application framework; also open source. It can s
 
 Following are the contents of this document:
 1. [Basics](#Basics) A simple hello world sample
-2. [Static Contents](#Static) How to serve static contents
+2. [Static Contents](#Static%20Contents) How to serve static contents
 3. [Nodemon](#Nodemon) Useful tool to speed up development
 4. [Routing](#Routing) How to peform Routing
 
