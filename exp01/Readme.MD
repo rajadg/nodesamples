@@ -21,6 +21,7 @@ Following are the contents of this document:
     - [Creating our own middleware](#creating-our-own-middleware)
       - [Basic Middleware](#basic-middleware)
       - [Multiple Middlewares](#multiple-middlewares)
+  - [7. Forms](#7-forms)
 
 ---
 
@@ -202,6 +203,38 @@ app.use('/user/:id', function (req, res, next) {
     next();
 });
 ```
+
+---
+
+## 7. Forms
+
+Form handling in express is much simpler once we use the body-parser middleware.  This middleware takes care of decoding the data posted by the client (in this case form in the browser). This middleware can also parse the posted data as form data, or as json (in REST calls) depending on the way we use it.
+
+A simple HTTP POST handler for the URL is sufficient to handle the posted form.
+
+Installation:
+```bash
+npm install body-parser --save
+```
+
+Form handling example:
+```javascript
+// Form handling
+var bodyParser = require('body-parser');
+// Add body parser middleware to parse application/xwww-urlencoded post
+app.use(bodyParser.urlencoded({ extended: false }));
+// Receive the posted form data
+app.post('/web/userInfo', function(req, res){
+    console.log(req.body);
+    var receivedData = {
+        name: req.body.name,
+        age: req.body.age
+    };
+    res.send(`Posted data: ${JSON.stringify(receivedData, space=' ')}`);
+ });
+
+```
+
 
 ---
 
