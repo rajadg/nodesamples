@@ -235,6 +235,27 @@ app.post('/web/userInfo', function(req, res){
 
 ```
 
+Example 2 (for Express 4.16 onwards)
+We do not have to install body-parser if the express version is 4.16 or later, as body parsing is part of express framework from version 4.16 onwards.
+```javascript
+// Form handling
+// Add body parser middleware to parse application/xwww-urlencoded post
+app.use(express.urlencoded({extended: false}));
+
+// Receive the posted form data
+app.post('/web/userInfo', function(req, res){
+    console.log(req.body);
+    var receivedData = {
+        name: req.body.name,
+        age: req.body.age
+    };
+    res.send(`Posted data: ${JSON.stringify(receivedData, space=' ')}`);
+ });
+
+// listen at port 8080
+app.listen(8080);
+```
+
 
 ---
 

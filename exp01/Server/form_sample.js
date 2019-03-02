@@ -13,7 +13,7 @@ app.use('/web', express.static(staticRoot));
 
 // Form handling
 // Add body parser middleware to parse application/xwww-urlencoded post
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 
 // Receive the posted form data
 app.post('/web/userInfo', function(req, res){
